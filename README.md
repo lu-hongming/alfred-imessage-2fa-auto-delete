@@ -1,12 +1,12 @@
 # iMessage 2FA Workflow for Alfred - Enhanced
 
-## Enhanced Features
-1. **Auto Enter:** send a enter keystroke after the code is pasted.
-2. **Auto Delete:** delete the message after usages (via delay).
-
 Find two-factor authentication codes in your recent iMessage messages.
 
 ![Screenshot](screenshot.png)
+
+## Enhanced Features
+1. **Auto Enter:** send a enter keystroke after the code is pasted.
+2. **Auto Delete:** delete the message after usages (via delay).
 
 ## Requirements
 
