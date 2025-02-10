@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>co.bluehelix.imessage-2fa</string>
-	<key>category</key>
-	<string>Tools</string>
+	<string>co.bluehelix.imessage-2fa-enhanced</string>
 	<key>connections</key>
 	<dict>
 		<key>7B86D057-DA8E-4302-AF17-83B889B48EE2</key>
@@ -51,6 +49,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>C8BEFD1F-D4A1-4092-A475-50A92B40D874</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8667DB0-BEC9-4FD4-A814-61653651F646</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>F66B4E67-AAD4-4597-9902-E084CCFAE32F</key>
 		<array>
 			<dict>
@@ -64,15 +75,28 @@
 				<false/>
 			</dict>
 		</array>
+		<key>F8667DB0-BEC9-4FD4-A814-61653651F646</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D73447ED-91EC-452A-9824-0C217976CE20</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Scott Carpenter</string>
+	<string>Lu Hongming</string>
 	<key>description</key>
 	<string>Find two-factor authentication codes in your recent iMessage messages</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>iMessage 2FA</string>
+	<string>iMessage 2FA - Enhanced</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -101,7 +125,7 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>Finding two-factor authentication codes...</string>
+				<string>Finding verification codes...</string>
 				<key>script</key>
 				<string>#!/bin/bash
 
@@ -127,7 +151,7 @@ php find-messages.php $look_back_minutes
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Find two-factor authentication codes...</string>
+				<string>Find codes...</string>
 				<key>title</key>
 				<string>iMessage 2FA</string>
 				<key>type</key>
@@ -185,25 +209,6 @@ php find-messages.php $look_back_minutes
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
-				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
-				<key>ignoredynamicplaceholders</key>
-				<false/>
-				<key>transient</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -228,6 +233,25 @@ php find-messages.php $look_back_minutes
 			<key>config</key>
 			<dict>
 				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>F66B4E67-AAD4-4597-9902-E084CCFAE32F</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
 				<true/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
@@ -242,6 +266,88 @@ php find-messages.php $look_back_minutes
 			<string>42B9D6A1-ACF9-4562-9718-B4A1C983D5AA</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>sms</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Find code and paste</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C8BEFD1F-D4A1-4092-A475-50A92B40D874</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>#!/bin/bash
+
+if ! hash php 2&gt; /dev/null; then
+	cat &lt;&lt;- EOB
+		{"items": [
+			{
+				"arg": "https://brew.sh",
+				"title": "ERROR: PHP is not installed on your system",
+				"subtitle": "Please install php. We recommend using Homebrew: https://brew.sh",
+				"valid": true
+			}
+		]}
+	EOB
+
+    exit 1
+fi
+
+php find-messages-paste.php $look_back_minutes</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F8667DB0-BEC9-4FD4-A814-61653651F646</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>iMessage 2FA</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>D73447ED-91EC-452A-9824-0C217976CE20</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -317,6 +423,20 @@ Select a 2FA code and do one of the following:
 			<key>ypos</key>
 			<real>70</real>
 		</dict>
+		<key>C8BEFD1F-D4A1-4092-A475-50A92B40D874</key>
+		<dict>
+			<key>xpos</key>
+			<real>90</real>
+			<key>ypos</key>
+			<real>685</real>
+		</dict>
+		<key>D73447ED-91EC-452A-9824-0C217976CE20</key>
+		<dict>
+			<key>xpos</key>
+			<real>500</real>
+			<key>ypos</key>
+			<real>685</real>
+		</dict>
 		<key>F66B4E67-AAD4-4597-9902-E084CCFAE32F</key>
 		<dict>
 			<key>note</key>
@@ -326,6 +446,13 @@ Select a 2FA code and do one of the following:
 			<key>ypos</key>
 			<real>335</real>
 		</dict>
+		<key>F8667DB0-BEC9-4FD4-A814-61653651F646</key>
+		<dict>
+			<key>xpos</key>
+			<real>315</real>
+			<key>ypos</key>
+			<real>685</real>
+		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
@@ -334,9 +461,11 @@ Select a 2FA code and do one of the following:
 		<key>look_back_minutes</key>
 		<string>15</string>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>1.3.0</string>
+	<string>1.3.0 - Enhanced</string>
 	<key>webaddress</key>
-	<string>https://github.com/squatto/alfred-imessage-2fa/</string>
+	<string>https://github.com/lu-hongming/alfred-imessage-2fa-enahnced</string>
 </dict>
 </plist>

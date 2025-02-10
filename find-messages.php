@@ -106,12 +106,13 @@ while ($message = $query->fetch(PDO::FETCH_ASSOC)) {
         continue;
     }
 
-    if (preg_match('/(^|\s|\R|\t|\b|G-|:)(\d{5,8})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
-        // 5-8 consecutive digits
+    if (preg_match('/(^|\s|\R|\t|\b|G-|:)(\d{4,8})($|\s|\R|\t|\b|\.|,)/', $text, $matches)) {
+        // 4-8 consecutive digits
         // examples:
         //   "您的验证码是 199035，10分钟内有效，请勿泄露"
         //   "登录验证码：627823，您正在尝试【登录】，10分钟内有效"
         //   "【赛验】验证码 54538"
+        //   "【秘塔科技】您正在进行注册，您的验证码为 8730 ，请勿泄露于他人 ，感谢您的支持！"
         //   "Enter this code to log in:59678."
         //   "G-315643 is your Google verification code"
         //   "Enter the code 765432, and then click the button to log in."
