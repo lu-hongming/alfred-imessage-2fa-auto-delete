@@ -4,9 +4,10 @@ Find two-factor authentication codes in your recent iMessage messages.
 
 ![Screenshot](screenshot.png)
 
-## Enhanced Features
-1. **Auto Enter:** send a enter keystroke after the code is pasted.
-2. **Auto Delete:** delete the message after usages (via delay).
+## Changelog
+- 20250210
+  - Updated the matching rule so that it can match 4-digit codes like "【秘塔科技】您正在进行注册，您的验证码为 8730 ，请勿泄露于他人 ，感谢您的支持！".
+  - Added a new workflow that automatically retrieves and pastes codes, allowing users to initiate it before receiving the code.
 
 ## Requirements
 
